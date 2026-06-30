@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "احسبها | تطبيق حساب السعرات للأكل العربي",
+  title: "احسبها | أسهل تطبيق لحساب السعرات الحرارية",
   description: "احسب سعرات أكلك العربي بسهولة مع تطبيق احسبها.",
 };
 
