@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -26,14 +27,7 @@ export const metadata: Metadata = {
     siteName: "احسبها",
     locale: "ar_AR",
     type: "website",
-    images: [
-      {
-        url: "/icon.png",
-        width: 512,
-        height: 512,
-        alt: "احسبها",
-      },
-    ],
+    images: [{ url: "/icon.png", width: 512, height: 512, alt: "احسبها" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -48,9 +42,26 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const gaId = "G-A4";
+
   return (
     <html lang="ar" dir="rtl">
-      <body>{children}</body>
+      <body>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            window.gtag = gtag;
+            gtag('js', new Date());
+            gtag('config', '${gaId}');
+          `}
+        </Script>
+        {children}
+      </body>
     </html>
   );
 }
