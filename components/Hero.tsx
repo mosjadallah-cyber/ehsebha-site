@@ -1,7 +1,20 @@
-import Image from "next/image";
+"use client";
+
 import PhoneSlideshow from "@/components/PhoneSlideshow";
 
 export default function Hero() {
+    const trackDownloadClick = (store: "app_store" | "google_play") => {
+        if (
+            typeof window !== "undefined" &&
+            typeof (window as any).gtag === "function"
+        ) {
+            (window as any).gtag("event", `click_${store}`, {
+                event_category: "download",
+                event_label: store,
+            });
+        }
+    };
+
     return (
         <section className="mx-auto grid w-full max-w-7xl items-center gap-6 px-6 py-2 md:grid-cols-2">
             <div className="flex justify-center">
@@ -22,6 +35,7 @@ export default function Hero() {
                     <br />
                     وسجّل أكلك اليومي في مكان واحد.
                 </p>
+
                 <div
                     id="download"
                     className="mt-4 flex flex-wrap items-center justify-center gap-3"
@@ -30,6 +44,7 @@ export default function Hero() {
                         href="https://apps.apple.com/app/id6767859232"
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackDownloadClick("app_store")}
                         className="flex h-12 w-36 items-center justify-center"
                     >
                         <img
@@ -43,6 +58,7 @@ export default function Hero() {
                         href="https://play.google.com/store/apps/details?id=com.musab.ehsebhaapp"
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackDownloadClick("google_play")}
                         className="flex h-12 w-36 items-center justify-center"
                     >
                         <img
